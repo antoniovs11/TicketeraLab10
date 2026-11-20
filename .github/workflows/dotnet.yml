@@ -1,0 +1,30 @@
+name: Build y publicar API .NET 10
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v7
+
+      - name: Instalar .NET 10
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restaurar dependencias
+        run: dotnet restore TicketeraLab10.sln
+
+      - name: Compilar
+        run: dotnet build TicketeraLab10.sln --configuration Release --no-restore
+
+      - name: Publicar la API
+        run: dotnet publish TicketeraLab10.Api/TicketeraLab10.Api.csproj --configuration Release --no-build --no-restore --output ./published
