@@ -1,0 +1,6 @@
+@TicketeraLab10.Api_HostAddress = http://localhost:5144
+
+GET {{TicketeraLab10.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
